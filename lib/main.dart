@@ -27,70 +27,70 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _message;
-  int _index;
-
-  @override
-  void initState() {
-    _message = 'ok.';
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('My App'),
       ),
-      body: Column(
-        children: [
-          Text(
-            _message,
-            style: TextStyle(
-              fontSize: 32.0,
+      body: new SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              color: Colors.blue,
+              height: 120.0,
+              child: const Center(
+                child: Text(
+                  'One',
+                  style: const TextStyle(fontSize: 32.0),
+                ),
+              ),
             ),
-          ),
-          ListView(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(20.0),
-            children: [
-              ListTile(
-                leading: const Icon(Icons.android),
-                title: const Text("First item"),
-                selected: _index == 1,
-                onTap: () {
-                  _index = 1;
-                  tapTile();
-                },
+            Container(
+              color: Colors.white,
+              height: 120.0,
+              child: const Center(
+                child: Text(
+                  'Two',
+                  style: const TextStyle(fontSize: 32.0),
+                ),
               ),
-              ListTile(
-                leading: const Icon(Icons.android),
-                title: const Text("Second item"),
-                selected: _index == 2,
-                onTap: () {
-                  _index = 2;
-                  tapTile();
-                },
+            ),
+            Container(
+              color: Colors.blue,
+              height: 120.0,
+              child: const Center(
+                child: Text(
+                  'Three',
+                  style: const TextStyle(fontSize: 32.0),
+                ),
               ),
-              ListTile(
-                leading: const Icon(Icons.android),
-                title: const Text("Third item"),
-                selected: _index == 3,
-                onTap: () {
-                  _index = 3;
-                  tapTile();
-                },
+            ),
+            Container(
+              color: Colors.white,
+              height: 120.0,
+              child: const Center(
+                child: Text(
+                  'Four',
+                  style: const TextStyle(fontSize: 32.0),
+                ),
               ),
-            ],
-          )
-        ],
+            ),
+            Container(
+              color: Colors.blue,
+              height: 120.0,
+              child: const Center(
+                child: Text(
+                  'Five',
+                  style: const TextStyle(fontSize: 32.0),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
-  }
-
-  void tapTile() {
-    setState(() {
-      _message = 'you tapped:  No, $_index';
-    });
   }
 }
