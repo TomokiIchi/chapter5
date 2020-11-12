@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _message;
-  int _index = 0;
+  int _index;
 
   @override
   void initState() {
@@ -38,40 +38,59 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('My App'),
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('My App'),
       ),
-      body: Center(
-        child: Text(
-          _message,
-          style: const TextStyle(
-            fontSize: 28.0,
+      body: Column(
+        children: [
+          Text(
+            _message,
+            style: TextStyle(
+              fontSize: 32.0,
+            ),
           ),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _index,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            title: Text('bottom'),
-            icon: Icon(Icons.android),
-          ),
-          BottomNavigationBarItem(
-            title: Text("bottom"),
-            icon: Icon(Icons.favorite),
-          ),
+          ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(20.0),
+            children: [
+              ListTile(
+                leading: const Icon(Icons.android),
+                title: const Text("First item"),
+                selected: _index == 1,
+                onTap: () {
+                  _index = 1;
+                  tapTile();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.android),
+                title: const Text("Second item"),
+                selected: _index == 2,
+                onTap: () {
+                  _index = 2;
+                  tapTile();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.android),
+                title: const Text("Third item"),
+                selected: _index == 3,
+                onTap: () {
+                  _index = 3;
+                  tapTile();
+                },
+              ),
+            ],
+          )
         ],
-        onTap: tapBottomIcon,
       ),
     );
   }
 
-  void tapBottomIcon(int value) {
-    var items = ['Android', 'Heart'];
+  void tapTile() {
     setState(() {
-      _index = value;
-      _message = 'you tapped: "' + items[_index] + '".';
+      _message = 'you tapped:  No, $_index';
     });
   }
 }
