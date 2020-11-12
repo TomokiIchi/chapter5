@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -27,69 +28,60 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List _items = <Widget>[];
+
+  @override
+  void initState() {
+    super.initState();
+    for (var i = 0; i < 10; i++) {
+      var item = Container(
+        color: i.isOdd ? Colors.blue : Colors.white,
+        height: 100.0,
+        child: Center(
+          child: Text(
+            'No, $i',
+            style: const TextStyle(fontSize: 32.0),
+          ),
+        ),
+      );
+      _items.add(item);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('My App'),
-      ),
-      body: new SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              color: Colors.blue,
-              height: 120.0,
-              child: const Center(
-                child: Text(
-                  'One',
-                  style: const TextStyle(fontSize: 32.0),
-                ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 200.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: const Text("Sliver App Bar"),
+              background: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.network(
+                    'https://github.com/flutter/website/blob/master/examples/layout/lakes/interactive/images/lake.jpg?raw=true',
+                    fit: BoxFit.fill,
+                  )
+                ],
               ),
             ),
-            Container(
-              color: Colors.white,
-              height: 120.0,
-              child: const Center(
-                child: Text(
-                  'Two',
-                  style: const TextStyle(fontSize: 32.0),
-                ),
-              ),
-            ),
-            Container(
-              color: Colors.blue,
-              height: 120.0,
-              child: const Center(
-                child: Text(
-                  'Three',
-                  style: const TextStyle(fontSize: 32.0),
-                ),
-              ),
-            ),
-            Container(
-              color: Colors.white,
-              height: 120.0,
-              child: const Center(
-                child: Text(
-                  'Four',
-                  style: const TextStyle(fontSize: 32.0),
-                ),
-              ),
-            ),
-            Container(
-              color: Colors.blue,
-              height: 120.0,
-              child: const Center(
-                child: Text(
-                  'Five',
-                  style: const TextStyle(fontSize: 32.0),
-                ),
-              ),
-            ),
-          ],
-        ),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.android),
+                tooltip: 'icon button',
+                onPressed: () {
+                  print('pressd.');
+                },
+              )
+            ],
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(_items),
+          ),
+        ],
       ),
     );
   }
